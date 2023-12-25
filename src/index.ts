@@ -1,17 +1,7 @@
-/**
- * Exporting all the defined CosmJS symbols
- */
+export { SigningCosmWasmClient } from "@cosmjs/cosmwasm-stargate";
+export { DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 
-// CosmWasmJS Helpers
-export {
-  setupCosmostation,
-  setupNodeLedger,
-  setupNodeLocal,
-  setupWebKeplr,
-  setupWebLedger,
-} from "./helpers/setup";
-
-// @cosmjs/amino
+/*
 export {
   AccountData,
   Algo,
@@ -51,8 +41,6 @@ export {
   StdSignDoc,
   StdTx,
 } from "@cosmjs/amino";
-
-// @cosmjs/cosmwasm-stargate
 export {
   ChangeAdminResult,
   CodeDetails,
@@ -75,7 +63,6 @@ export {
 // @cosmjs/crypto
 export { Bip39, HdPath, pathToString, Random } from "@cosmjs/crypto";
 export {
-  Bech32,
   fromAscii,
   fromBase64,
   fromBech32,
@@ -130,5 +117,5 @@ export {
   TxExtension,
 } from "@cosmjs/stargate";
 
-// @cosmjs/utils
 export { isNonNullObject } from "@cosmjs/utils";
+*/

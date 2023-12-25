@@ -27,13 +27,47 @@ const commonConfig = {
   ],
 };
 
-const webConfig = {
+const webEsmConfig = {
   ...commonConfig,
   target: "web",
   output: {
-    filename: "bundle.js",
-    libraryTarget: "umd",
-    library: "CosmWasmJS",
+    filename: "bundle.esm.js",
+    library: {
+      type: "module",
+    },
+  },
+  resolve: {
+    ...commonConfig.resolve,
+    fallback: {
+      stream: require.resolve("stream-browserify"),
+      buffer: require.resolve("buffer"),
+      path: require.resolve("path-browserify"),
+      crypto: false,
+    },
+  },
+  plugins: [
+    ...commonConfig.plugins,
+    new webpack.ProvidePlugin({
+      Buffer: ["buffer", "Buffer"],
+    }),
+    new webpack.ProvidePlugin({
+      process: "process/browser",
+    }),
+  ],
+  experiments: {
+    outputModule: true,
+  },
+};
+
+const webUmdConfig = {
+  ...commonConfig,
+  target: "web",
+  output: {
+    filename: "bundle.umd.js",
+    library: {
+      name: "CosmWasmJS",
+      type: "umd",
+    },
   },
   resolve: {
     ...commonConfig.resolve,
@@ -64,4 +98,4 @@ const nodeConfig = {
   },
 };
 
-module.exports = [webConfig, nodeConfig];
+module.exports = [webEsmConfig, webUmdConfig, nodeConfig];
