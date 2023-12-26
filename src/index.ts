@@ -1,5 +1,6 @@
 export { SigningCosmWasmClient } from "@cosmjs/cosmwasm-stargate";
 export { DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
+export { GasPrice } from "@cosmjs/stargate";
 
 /*
 export {
