@@ -1,6 +1,18 @@
 export { SigningCosmWasmClient } from "@cosmjs/cosmwasm-stargate";
 export { DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 export { GasPrice } from "@cosmjs/stargate";
+export { HttpBatchClient, Tendermint34Client, TxData } from "@cosmjs/tendermint-rpc";
+import { setupWasmExtension, WasmExtension } from "@cosmjs/cosmwasm-stargate";
+import { QueryClient } from "@cosmjs/stargate";
+import { HttpBatchClient, Tendermint34Client } from "@cosmjs/tendermint-rpc";
+
+export async function createBatchQueryClient(rpcEndpoint: string): Promise<QueryClient & WasmExtension> {
+  const httpBatch = new HttpBatchClient(rpcEndpoint);
+  const tmClient = await Tendermint34Client.create(httpBatch);
+  const queryClient = QueryClient.withExtensions(tmClient, setupWasmExtension);
+
+  return queryClient;
+}
 
 /*
 export {
