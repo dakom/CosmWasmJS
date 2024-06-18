@@ -1,10 +1,14 @@
 export { SigningCosmWasmClient } from "@cosmjs/cosmwasm-stargate";
-export { DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
+export { DirectSecp256k1HdWallet, decodeTxRaw } from "@cosmjs/proto-signing";
 export { GasPrice } from "@cosmjs/stargate";
 export { HttpBatchClient, Tendermint34Client, TxData } from "@cosmjs/tendermint-rpc";
+export {fromBech32, toBech32} from "@cosmjs/encoding";
+export { TxRaw } from "cosmjs-types/cosmos/tx/v1beta1/tx";
+
 import { setupWasmExtension, WasmExtension } from "@cosmjs/cosmwasm-stargate";
 import { QueryClient } from "@cosmjs/stargate";
 import { HttpBatchClient, Tendermint34Client } from "@cosmjs/tendermint-rpc";
+import {fromBech32, toBech32} from "@cosmjs/encoding";
 
 export async function createBatchQueryClient(rpcEndpoint: string): Promise<QueryClient & WasmExtension> {
   const httpBatch = new HttpBatchClient(rpcEndpoint);
@@ -12,6 +16,12 @@ export async function createBatchQueryClient(rpcEndpoint: string): Promise<Query
   const queryClient = QueryClient.withExtensions(tmClient, setupWasmExtension);
 
   return queryClient;
+}
+
+export function convertAddress(address: string, prefix: string): string {
+  const decoded = fromBech32(address);
+  const newAddress = toBech32(prefix, decoded.data);
+  return newAddress;
 }
 
 /*

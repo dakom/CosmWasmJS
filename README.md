@@ -4,6 +4,6 @@ CosmWasmJS is outdated and unmaintained. See https://medium.com/cosmwasm/dev-not
 
 This fork is just a slightly hacked copy to export what we need in a bundle
 
-run `yarn webpack` to create the bundled js which will live in dist/bundle.js
+run `npm run webpack` to create the bundled js which will live in dist/bundle.js
 
 nice little tutorial on quick setup: https://hackmd.io/@0xGhastly/H1GlUwiZh
